@@ -44,7 +44,6 @@ int main()
     cout << qqDataM.getUsingAccountName() << endl;
     cout << qqDataM.getUsingAccountId() << endl;
 
-    qqDataM.setUsingAccountNULL();
 
     qqDataM.signinQQ("100003", "123456");
 
