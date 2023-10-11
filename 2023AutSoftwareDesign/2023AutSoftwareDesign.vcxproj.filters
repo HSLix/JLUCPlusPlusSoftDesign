@@ -39,6 +39,9 @@
     <ClInclude Include="AccountGroupDataManage.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Interact.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp">
@@ -62,9 +65,12 @@
     <ClCompile Include="AccountGroupDataManage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Interact.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="QQIdBitmap.txt">
+    <Text Include="QQ\QQIdBitmap.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>

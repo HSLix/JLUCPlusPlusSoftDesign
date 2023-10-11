@@ -134,6 +134,7 @@
     <ClInclude Include="Group.h" />
     <ClInclude Include="GroupMember.h" />
     <ClInclude Include="IdManage.h" />
+    <ClInclude Include="Interact.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="RandomNum.h" />
   </ItemGroup>
@@ -142,12 +143,13 @@
     <ClCompile Include="AccountGroupDataManage.cpp" />
     <ClCompile Include="Group.cpp" />
     <ClCompile Include="IdManage.cpp" />
+    <ClCompile Include="Interact.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RandomNum.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="QQIdBitmap.txt" />
+    <Text Include="QQ\QQIdBitmap.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

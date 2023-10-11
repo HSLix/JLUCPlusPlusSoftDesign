@@ -29,8 +29,8 @@ public:
 	// 返回一个可用的QQId并将输入id位置设为1，如无符合条件的Id，则返回-1
 	std::string returnUsableQQId();
 
-	// 设置输入Id位置为1
-	void setQQIdIndex1(std::string QQId);
+	// 设置输入Id位置为1/0
+	void setQQIdIndex(std::string QQId, int num);
 
 private:
 	std::string fileName;

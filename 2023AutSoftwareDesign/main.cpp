@@ -6,11 +6,13 @@
 #include <bitset>
 #include <cstdlib>
 
+
 #include "Account.h"
 #include "Login.h"
 #include "Friend.h"
 #include "Group.h"
 #include "IdManage.h"
+#include "Interact.h"
 #include "AccountGroupDataManage.h"
 
 
@@ -19,42 +21,35 @@ using namespace std;
 
 int main()
 {
+    
     system("chcp 65001");
     system("cls");
-
-
-
-
+    
 
     QQDataManage qqDataM;
+    qqDataM.clearQQAccount();
+    
+    //qqDataM.signupQQ("老王", "123456"); //100001
+    //qqDataM.signupQQ("小明", "123456"); //100002
+    //qqDataM.signupQQ("小刚", "123456"); //100003
 
-    qqDataM.readFileSaveAsMap();
+    qqDataM.signinQQ("100001", "123456");
 
-    qqDataM.signupQQ("老王", "123456");
-
-
-    QQAccount user1("100035");
-    user1.readAccountFromFile();
-    cout << user1.getId() << endl;
-    cout << user1.getName() << endl;
+    cout << qqDataM.getUsingAccountName() << endl;
+    cout << qqDataM.getUsingAccountId() << endl;
     
 
-    user1.readAccountFromFile();
+    qqDataM.signinQQ("100002", "123456");
 
-    user1.addFriendToList("小明", "100013");
-    user1.addFriendToList("小红", "100020");
+    cout << qqDataM.getUsingAccountName() << endl;
+    cout << qqDataM.getUsingAccountId() << endl;
 
-    user1.showFriendList();
-    
-    cout << endl;
+    qqDataM.setUsingAccountNULL();
 
-    user1.saveAccountAsFile();
+    qqDataM.signinQQ("100003", "123456");
 
-    user1.readAccountFromFile();
-
-    user1.showFriendList();
-
-
+    cout << qqDataM.getUsingAccountName() << endl;
+    cout << qqDataM.getUsingAccountId() << endl;
     
     return 0;
 }

@@ -16,6 +16,28 @@ bool baseAccount::checkPwd(std::string inputPwd){
     return result;
 }
 
+// 创建或重置文件
+void QQAccount::createOrResetFile(std::string ID)
+{
+    std::ofstream fout;
+    
+    std::string thisAccountSelfFileAddress = QQAccount::accountFileAddress + ID + "Self" + ".txt";
+
+    std::string thisAccountFriendFileAddress = QQAccount::accountFileAddress + ID + "Friend" + ".txt";
+
+    std::string thisAccountGroupFileAddress = QQAccount::accountFileAddress + ID + "Group" + ".txt";
+
+    // 先是重置个人信息
+    fout.open(thisAccountSelfFileAddress, std::ios::out);
+    fout.close();
+
+    fout.open(thisAccountFriendFileAddress, std::ios::out);
+    fout.close();
+
+    fout.open(thisAccountGroupFileAddress, std::ios::out);
+    fout.close();
+}
+
 
 //初始化QQ用户文件储存目录
 std::string QQAccount::accountFileAddress = ".\\QQ\\Account\\";
@@ -122,13 +144,14 @@ void QQAccount::saveAccountAsFile()
     fout.open(this->thisAccountSelfFileAddress, std::ios::out);
     fout << this->getId() << std::endl;
     fout << this->getName() << std::endl;
+    fout << this->getPwd() << std::endl;
     fout.close();
 
     // 然后是保存好友信息
     fout.open(this->thisAccountFriendFileAddress, std::ios::out);
     for (std::list<QQFriend>::iterator it = this->myFriends.begin(); it != myFriends.end(); ++it) {
         fout << it->getId() << std::endl;
-        fout << it->getName() << std::endl;
+        // fout << it->getName() << std::endl;
     }
     fout.close();
 
@@ -155,6 +178,8 @@ bool QQAccount::readAccountFromFile()
         this->setId(tempStr1);
         getline(fin, tempStr1);
         this->setName(tempStr1);
+        getline(fin, tempStr1);
+        this->setPwd(tempStr1);
         fin.close();
     }
 

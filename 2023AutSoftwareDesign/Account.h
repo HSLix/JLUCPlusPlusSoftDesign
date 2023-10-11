@@ -32,6 +32,11 @@ public:
         return mName;
     }
 
+    // 返回密码
+    std::string getPwd() {
+        return mPwd;
+    }
+
     // 修改Id
     void setId(std::string Id)
     {
@@ -56,6 +61,8 @@ public:
     // 从文件中读取用户信息
     virtual bool readAccountFromFile() = 0;
 
+    
+
 
 protected:
     //id考虑到微信号有英文混合,故采用string类型
@@ -77,6 +84,7 @@ public:
     
         thisAccountGroupFileAddress = QQAccount::accountFileAddress + ID + "Group" + ".txt";
 
+        this->readAccountFromFile();
     }
 
 
@@ -106,7 +114,8 @@ public:
     // 从文件中读取用户信息
     bool readAccountFromFile();
     
-    // 根据name创建Group
+    // 创建或重置文件
+    static void createOrResetFile(std::string Id);
 
 
 

@@ -16,7 +16,7 @@ using namespace std;
 
 QQIdManage::QQIdManage()
 {
-    this->fileName = "QQIdBitmap.txt";
+    this->fileName = "./QQ/QQIdBitmap.txt";
     this->QQIdBitmap = new bitset<maxIdNum>;
     
 
@@ -89,7 +89,7 @@ bool QQIdManage::isQQIdExist(string QQId)
 
 
 // 设置输入Id位置为1
-void QQIdManage::setQQIdIndex1(string QQId)
+void QQIdManage::setQQIdIndex(string QQId, int num)
 {
     ifstream fin;
     ofstream fout;
@@ -104,7 +104,7 @@ void QQIdManage::setQQIdIndex1(string QQId)
     {
         fin >> *(this->QQIdBitmap);
         int idIndex = stoi(QQId);
-        (*(this->QQIdBitmap)).flip(idIndex);
+        (*(this->QQIdBitmap))[idIndex] = num;
         fin.close();
     }
 
@@ -142,7 +142,7 @@ string QQIdManage::returnUsableQQId()
             while (result == -1)
             {
                 result = ++this->latestId;
-                this->setQQIdIndex1(to_string(result));
+                this->setQQIdIndex(to_string(result), 1);
             }
         }
         fin.close();
