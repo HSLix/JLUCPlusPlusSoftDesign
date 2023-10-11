@@ -59,6 +59,7 @@ public:
 		// 修改数据保存文件夹为子文件夹
 		this->baseAddress += "QQ/";
 
+		this->QQAccountPointer = new std::map<std::string, QQAccount>;
 
 		this->accountFileAddress = this->baseAddress + "Account/";
 		this->groupFileAddress = this->baseAddress + "Group/";
@@ -78,7 +79,7 @@ public:
 	// 登录
 	bool signinQQ(std::string Id, std::string Pwd);
 
-	
+
 	
 
 
@@ -89,6 +90,8 @@ private:
 	// 群数组地址
 	std::string groupFileAddress;
 
+	// 用户map
+	std::map<std::string, QQAccount>* QQAccountPointer;
 
 	// Id管理
 	QQIdManage IdManage;

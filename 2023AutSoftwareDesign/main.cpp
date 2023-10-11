@@ -24,11 +24,11 @@ int main()
     
     system("chcp 65001");
     system("cls");
-    
+
 
     QQDataManage qqDataM;
     qqDataM.clearQQAccount();
-    
+
     //qqDataM.signupQQ("老王", "123456"); //100001
     //qqDataM.signupQQ("小明", "123456"); //100002
     //qqDataM.signupQQ("小刚", "123456"); //100003
@@ -44,7 +44,8 @@ int main()
     cout << qqDataM.getUsingAccountName() << endl;
     cout << qqDataM.getUsingAccountId() << endl;
 
-
+    user1.showFriendList();
+    
     qqDataM.signinQQ("100003", "123456");
 
     cout << qqDataM.getUsingAccountName() << endl;

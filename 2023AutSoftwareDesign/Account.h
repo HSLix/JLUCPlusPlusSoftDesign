@@ -61,7 +61,7 @@ public:
     // 从文件中读取用户信息
     virtual bool readAccountFromFile() = 0;
 
-    
+
 
 
 protected:

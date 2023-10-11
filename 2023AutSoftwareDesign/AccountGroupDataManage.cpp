@@ -7,7 +7,14 @@
 
 using namespace std;
 
-
+// 读取数据并保存为map
+bool QQDataManage::readFileSaveAsMap()
+{
+	bool result = false;
+	
+	
+	return result;
+}
 
 
 // 靠Id获取用户
