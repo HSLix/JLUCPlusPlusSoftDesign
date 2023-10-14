@@ -9,7 +9,7 @@
 void program::rootPage()
 {
 	this->schemePointer = new baseScheme();
-	system("cls");
+	std::system("cls");
 	// choice默认空为返回,-1为异常
 	this->choice = this->schemePointer->startMenu();
 	if (this->choice == "-1")
@@ -35,7 +35,7 @@ void program::branchPage()
 	cout << "4、退出" << endl;
 	cout << "更多服务，敬请期待" << endl;
 	*/
-	system("cls");
+	std::system("cls");
 	switch (stoi(this->choice))
 	{
 	case 1:

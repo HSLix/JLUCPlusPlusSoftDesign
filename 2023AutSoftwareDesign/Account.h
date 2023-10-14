@@ -4,6 +4,8 @@
 #include <string>
 #include <list>
 #include "Friend.h"
+#include "Group.h"
+#include "JoinedGroup.h"
 
 
 class baseAccount
@@ -24,36 +26,59 @@ public:
 
     // 返回Id
     std::string getId() {
-        return mId;
+        return this->mId;
     }
 
     // 返回名字
     std::string getName() {
-        return mName;
+        return this->mName;
     }
 
     // 返回密码
     std::string getPwd() {
-        return mPwd;
+        return this->mPwd;
+    }
+
+    // 返回生日
+    std::string getBirth() {
+        return this->mBirth;
+    }
+
+    // 返回地址
+    std::string getLocate() {
+        return this->mLocate;
     }
 
     // 修改Id
     void setId(std::string Id)
     {
-        mId = Id;
+        this->mId = Id;
     }
 
     // 修改Name
     void setName(std::string Name)
     {
-        mName = Name;
+        this->mName = Name;
     }
 
     // 修改Pwd
     void setPwd(std::string Pwd)
     {
-        mPwd = Pwd;
+        this->mPwd = Pwd;
     }
+
+    // 修改Birth
+    void setBirth(std::string Birth)
+    {
+        this->mBirth = Birth;
+    }
+
+    // 修改Locate
+    void setLocate(std::string Locate)
+    {
+        this->mLocate = Locate;
+    }
+
 
     // 将用户信息保存为文件
     virtual void saveAccountAsFile() = 0;
@@ -69,6 +94,8 @@ protected:
     std::string mId;
     std::string mPwd;
     std::string mName;
+    std::string mBirth;
+    std::string mLocate;
 };
 
 
@@ -117,6 +144,17 @@ public:
     // 创建或重置文件
     static void createOrResetFile(std::string Id);
 
+    // 加入群
+    bool joinGroupToList(std::string Name, std::string Id);
+
+    // 遍历并输出已加入群列表，无返回
+    void showJoinedGroupList();
+
+    // 根据Id查找已加入的群，返回其索引
+    int searchJoinedGroupById(std::string Id);
+
+    // 根据Id退出已加入的群，返回是否成功删除
+    bool delJoinedGroupById(std::string Id);
 
 
 
@@ -126,6 +164,9 @@ private:
     
     // 好友表
     std::list<QQFriend> myFriends;
+
+    // 群表
+    std::list<QQJoinedGroup> myGroups;
 
     // QQ用户个人信息文件
     std::string thisAccountSelfFileAddress;

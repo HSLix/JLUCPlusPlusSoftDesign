@@ -135,7 +135,7 @@
     <ClInclude Include="GroupMember.h" />
     <ClInclude Include="IdManage.h" />
     <ClInclude Include="Interact.h" />
-    <ClInclude Include="Login.h" />
+    <ClInclude Include="JoinedGroup.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="RandomNum.h" />
     <ClInclude Include="Scheme.h" />
@@ -146,7 +146,6 @@
     <ClCompile Include="Group.cpp" />
     <ClCompile Include="IdManage.cpp" />
     <ClCompile Include="Interact.cpp" />
-    <ClCompile Include="Login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="program.cpp" />
     <ClCompile Include="RandomNum.cpp" />

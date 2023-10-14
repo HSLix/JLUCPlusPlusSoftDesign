@@ -18,12 +18,9 @@ using namespace std;
 
 int main()
 {
-    system("chcp 65001");
-    system("cls");
+    std::system("chcp 65001");
+    std::system("cls");
 
-    QQGroup testGroup();
-    
-    Interact::pauseAndClearScreen();
 
 
     program* TecSys = new program();

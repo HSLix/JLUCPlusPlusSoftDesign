@@ -56,9 +56,10 @@ string Interact::inputAllInt(int maxLen, int minNum, int maxNum)
 }
 
 // 数字与英文字母
-string Interact::inputEWordAndInt(int maxLen)
+string Interact::inputEWordAndInt(int maxLen, bool pwdSwitch)
 {
     string result = "";
+    string pwdResult = "";
     int inputWord;
     if (maxLen > 0)
     {
@@ -68,6 +69,7 @@ string Interact::inputEWordAndInt(int maxLen)
             if (inputWord == 8 && !result.empty())
             {
                 result.pop_back();
+                pwdResult.pop_back();
                 cout << "\b";
             }
             if (((inputWord >= 48 && inputWord <= 57)
@@ -76,9 +78,18 @@ string Interact::inputEWordAndInt(int maxLen)
                 && result.size() < maxLen)
             {
                 result += (char)inputWord;
+                pwdResult += "*";
             }
             cout << "\r                                                                                                    ";
-            cout << "\r" + result;
+            if (pwdSwitch)
+            {
+                cout << "\r" + pwdResult;
+            }
+            else
+            {
+                cout << "\r" + result;
+            }
+            
 
             inputWord = _getch();
         }
@@ -107,8 +118,8 @@ string Interact::inputNormal()
 //任意键继续然后清屏
 void Interact::pauseAndClearScreen()
 {
-    system("pause");
-    system("cls");
+    std::system("pause");
+    std::system("cls");
 }
 
 
@@ -143,6 +154,11 @@ string QQInteract::showSignUpPage()
         {
             cout << "注册成功！\n" << "您的Id是：" << this->QQDataM.getUsingAccountId() << " 正在进入登陆界面\n" << endl;
             exitFlag = true;
+            cout << "请输入生日:" << endl;
+            this->QQDataM.setBirth(this->Interact::inputAllInt(8));
+            cout << "请输入地址：" << endl;
+            this->QQDataM.setLocate(this->Interact::inputEWordAndInt(20));
+            this->QQDataM.saveAccountData();
         }
         else
         {
@@ -154,7 +170,7 @@ string QQInteract::showSignUpPage()
 }
 
 
-// 这是注销的界面
+// 这是注销QQ账户的界面
 string QQInteract::showLogOffMenu()
 {
     string result = "";
@@ -178,7 +194,7 @@ string QQInteract::showLogOffMenu()
         string isAdd = Interact::inputAllInt(1, 0, 1);
         if (isAdd == "1")
         {
-            this->QQDataM.delId(tempPointer->getId());
+            this->QQDataM.delAccountId(tempPointer->getId());
             QQAccount::createOrResetFile(tempPointer->getId());
             cout << "注销成功！" << endl;
         }
@@ -207,7 +223,7 @@ string QQInteract::showSignInPage()
         cout << "请输入Id:" << endl;
         signInId = Interact::inputAllInt(6);
         cout << "请输入密码:" << endl;
-        signInPwd = Interact::inputEWordAndInt(10);
+        signInPwd = Interact::inputEWordAndInt(10, true);
     
         signUpResult = this->QQDataM.signinQQ(signInId, signInPwd);
     
@@ -271,7 +287,7 @@ string QQInteract::showAfterSignInMenu()
             break;
         default:
             cout << "您所选择的序号尚未安排服务，请重新选择" << endl;
-            system("pause");
+            std::system("pause");
         }
         choice = "";
     }
@@ -324,7 +340,7 @@ std::string QQInteract::showQQFriendPage()
             break;
         default:
             cout << "您所选择的序号尚未安排服务，请重新选择" << endl;
-            system("pause");
+            std::system("pause");
         }
         choice = "";
     }
@@ -344,11 +360,12 @@ std::string QQInteract::showQQGroupPage()
     {
         if (choice == "")
         {
-            cout << "\n请选择下列服务的序号输入：" << endl;
+            cout << "--------------------------------------------------------------" << endl;
+            cout << "请选择下列服务的序号输入：" << endl;
             cout << "1、查看所有加入的群" << endl;
-            cout << "2、查询群" << endl;
-            cout << "3、删除群" << endl;
-            cout << "4、添加群" << endl;
+            cout << "2、编辑已加入群" << endl;//查找，删除，邀请
+            cout << "3、添加群" << endl;
+            cout << "4、创建群" << endl;
             cout << "5、退出" << endl;
             cout << "更多服务，敬请期待" << endl;
             choice = Interact::inputAllInt(1, 1, 5);
@@ -359,19 +376,26 @@ std::string QQInteract::showQQGroupPage()
         switch (stoi(choice))
         {
         case 1:
-
+            this->QQDataM.showAllGroup();
+            choice = "";
             break;
         case 2:
-
+            choice = this->editQQGroupPage();
             break;
         case 3:
-
+            choice = this->joinQQGroupPage();
             break;
         case 4:
-
+            choice = this->createQQGroupPage();
             break;
         case 5:
             exitFlag = true;
+            break;
+        case 6:
+            choice = this->searchQQGroupPage();
+            break;
+        case 7:
+            choice = this->exitQQGroupPage();
             break;
         default:
             cout << "您所选择的序号尚未安排服务，请重新选择" << endl;
@@ -422,8 +446,8 @@ std::string QQInteract::addQQFriendPage()
         tempPointer = nullptr;
     }
 
-    system("pause");
-    system("cls");
+    std::system("pause");
+    std::system("cls");
        
     return result;
 }
@@ -463,8 +487,8 @@ std::string QQInteract::searchQQFriendPage()
         tempPointer = nullptr;
     }
 
-    system("pause");
-    system("cls");
+    std::system("pause");
+    std::system("cls");
 
     return result;
 }
@@ -506,8 +530,186 @@ std::string QQInteract::delQQFriendPage()
         tempPointer = nullptr;
     }
 
-    system("pause");
-    system("cls");
+    std::system("pause");
+    std::system("cls");
+
+    return result;
+}
+
+// 这是编辑Q群的界面
+std::string QQInteract::editQQGroupPage()
+{
+    string result = "";
+    cout << "--------------------------------------------------------------" << endl;
+    cout << "请输入选项：" << endl;
+    cout << "1、查找已加入的群" << endl;
+    cout << "2、退出已加入的群" << endl;
+    cout << "3、返回" << endl;
+    result = Interact::inputAllInt(1, 1, 3);
+    if (result == "1")
+    {
+        result = "6";
+    }
+    else if (result == "2")
+    {
+        result = "7";
+    }
+    else if (result == "3")
+    {
+        result = "";
+    }
+
+    return result;
+}
+
+// 这是加入Q群的界面
+std::string QQInteract::joinQQGroupPage()
+{
+    string result = "";
+    string Id = "";
+
+
+    cout << "--------------------------------------------------------------" << endl;
+    cout << "请输入想添加群的Id：" << endl;
+    Id = Interact::inputAllInt(6);
+    QQGroup* tempPointer = this->QQDataM.getGroupById(Id);
+
+    if (tempPointer == nullptr)
+    {
+        cout << "该Id群不存在" << endl;
+    }
+    else if (tempPointer->searchMemberById(this->QQDataM.getUsingAccountId()) != -1)
+    {
+        cout << "不能重复加入一个群" << endl;
+    }
+    else
+    {
+        cout << "目标群信息为：" << endl;
+        cout << "昵称：" << tempPointer->getName() << endl;
+        cout << "是否加入？（1为是，0为否）" << endl;
+        string isAdd = Interact::inputAllInt(1, 0, 1);
+        if (isAdd == "1")
+        {
+            result = true;
+            this->QQDataM.joinGroup(tempPointer->getId());
+            this->QQDataM.saveAccountData();
+
+            tempPointer->addMemberToList(this->QQDataM.getUsingAccountName(), this->QQDataM.getUsingAccountId());
+            tempPointer->saveGroupAsFile();
+            cout << "加入成功！" << endl;
+        }
+        delete tempPointer;
+        tempPointer = nullptr;
+    }
+
+    std::system("pause");
+    std::system("cls");
+
+    return result;
+}
+
+// 这是创建Q群的界面
+std::string QQInteract::createQQGroupPage()
+{
+    string newGroupName;
+    bool result = true;
+    bool exitFlag = false;
+
+    while (!exitFlag)
+    {
+        cout << "--------------------------------------------------------------" << endl;
+        cout << "请输入想创建群的名字:" << endl;
+        newGroupName = Interact::inputEWordAndInt(10);
+
+        this->QQDataM.createGroup(newGroupName);
+
+        if (result)
+        {
+            cout << "创建群成功！"<< endl;
+            exitFlag = true;
+        }
+        else
+        {
+            cout << "创建失败，请重试" << endl;
+        }
+    }
+    
+    return "";
+}
+
+
+// 这是退出Q群的界面
+std::string QQInteract::exitQQGroupPage()
+{
+    string result = "";
+    string Id = "";
+
+
+    cout << "--------------------------------------------------------------" << endl;
+    cout << "请输入想退出群的Id：" << endl;
+    Id = Interact::inputAllInt(6);
+    QQGroup* tempPointer = this->QQDataM.getGroupById(Id);
+    tempPointer->readGroupFromFile();
+
+    if (tempPointer == nullptr)
+    {
+        cout << "该Id群不存在" << endl;
+    }
+    else if (tempPointer->searchMemberById(this->QQDataM.getUsingAccountId()) == -1)
+    {
+        cout << "不能退出一个没有加入的群" << endl;
+    }
+    else
+    {
+        cout << "目标群信息为：" << endl;
+        cout << "昵称：" << tempPointer->getName() << endl;
+        cout << "是否退出？（1为是，0为否）" << endl;
+        string isAdd = Interact::inputAllInt(1, 0, 1);
+        if (isAdd == "1")
+        {
+            this->QQDataM.exitGroup(tempPointer->getId());
+            this->QQDataM.saveAccountData();
+
+            tempPointer->delMemberById(this->QQDataM.getUsingAccountId());
+            tempPointer->saveGroupAsFile();
+            cout << "退出成功！" << endl;
+        }
+        delete tempPointer;
+        tempPointer = nullptr;
+    }
+
+
+    return result;
+}
+
+// 这是查询Q群的界面
+std::string QQInteract::searchQQGroupPage()
+{
+    string result = "";
+    string Id = "";
+
+
+    cout << "--------------------------------------------------------------" << endl;
+    cout << "请输入想查询已加入群的Id：" << endl;
+    Id = Interact::inputAllInt(6);
+    QQGroup* tempPointer = this->QQDataM.getGroupById(Id);
+    tempPointer->readGroupFromFile();
+
+    if (tempPointer == nullptr)
+    {
+        cout << "该Id群不存在" << endl;
+    }
+    else if (nullptr == tempPointer)
+    {
+        cout << "尚未加入该群" << endl;
+    }
+    else
+    {
+        cout << "群名称：" << tempPointer->getName() << endl;
+        delete tempPointer;
+        tempPointer = nullptr;
+    }
+
 
     return result;
 }

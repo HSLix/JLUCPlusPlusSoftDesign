@@ -54,7 +54,6 @@ public:
 	}
 
 
-	
 
 	// QQ起始界面
 	std::string startMenu();

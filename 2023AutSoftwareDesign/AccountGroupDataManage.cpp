@@ -15,7 +15,7 @@ QQAccount* QQDataManage::getAccountById(string Id)
 {
 	QQAccount* tempPointer = nullptr;
 
-	if (this->IdManage.isQQIdExist(Id))
+	if (this->IdManage.isIdExist(Id))
 	{
 		tempPointer = new QQAccount(Id);
 	}
@@ -23,11 +23,23 @@ QQAccount* QQDataManage::getAccountById(string Id)
 	return tempPointer;
 }
 
+// 靠Id获取群,若不存在，则返回nullptr
+QQGroup* QQDataManage::getGroupById(std::string Id)
+{
+	QQGroup* tempPointer = nullptr;
+
+	if (this->IdManage.isIdExist(Id))
+	{
+		tempPointer = new QQGroup(Id);
+	}
+
+	return tempPointer;
+}
 
 // 注册
 bool QQDataManage::signupQQ(std::string Name, std::string Pwd)
 {
-	string newId = this->IdManage.returnUsableQQId();
+	string newId = this->IdManage.returnUsableId();
 	bool result = false;
 	if (newId != "-1")
 	{
@@ -71,13 +83,13 @@ bool QQDataManage::signinQQ(std::string Id, std::string Pwd)
 //清空QQ用户库
 void QQDataManage::clearQQAccount()
 {
-	this->IdManage.resetQQIdBitmap();
+	this->IdManage.resetIdBitmap();
 }
 
 // 设置某个Id注销
-void QQDataManage::delId(std::string Id)
+void QQDataManage::delAccountId(std::string Id)
 {
-	this->IdManage.setQQIdIndex(Id, 0);
+	this->IdManage.setIdIndex(Id, 0);
 }
 
 // 保存正使用用户数据
@@ -107,4 +119,50 @@ void QQDataManage::delFriend(std::string Name = "", std::string Id = "")
 {
 	this->usingAccountPointer->delFriendById(Id);
 	this->usingAccountPointer->delFriendById(Id);
+}
+
+// 创建群
+void QQDataManage::createGroup(std::string Name)
+{
+	string Id = this->GIdManage.returnUsableId();
+	QQGroup tempGroup(Id);
+	tempGroup.createOrResetFile(Id);
+	tempGroup.setName(Name);
+	tempGroup.setId(Id);
+	tempGroup.addMemberToList(this->usingAccountPointer->getName(), this->usingAccountPointer->getId());
+	this->usingAccountPointer->joinGroupToList(Name, Id);
+	this->usingAccountPointer->saveAccountAsFile();
+	tempGroup.saveGroupAsFile();
+}
+
+// 退出群
+void QQDataManage::exitGroup(std::string Id)
+{
+	QQGroup tempGroup(Id);
+	tempGroup.readGroupFromFile();
+	tempGroup.delMemberById(this->usingAccountPointer->getId());
+	this->usingAccountPointer->delJoinedGroupById(Id);
+	this->usingAccountPointer->saveAccountAsFile();
+	tempGroup.saveGroupAsFile();
+}
+
+// 遍历并输出群列表
+void QQDataManage::showAllGroup()
+{
+	cout << "--------------------------------------------------------------" << endl;
+	this->usingAccountPointer->showJoinedGroupList();
+	cout << "以上为所有加入的群\n" << endl;
+}
+
+// 加入群
+bool QQDataManage::joinGroup(std::string Id)
+{
+	bool result = true;
+	QQGroup tempGroup(Id);
+	tempGroup.readGroupFromFile();
+	tempGroup.addMemberToList(this->usingAccountPointer->getName(), this->usingAccountPointer->getId());
+	this->usingAccountPointer->joinGroupToList(tempGroup.getName(), Id);
+	this->usingAccountPointer->saveAccountAsFile();
+	tempGroup.saveGroupAsFile();
+	return result;
 }

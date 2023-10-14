@@ -47,7 +47,7 @@ std::string baseScheme::startMenu()
             exitFlag = false;
             cout << "baseScheme::startMenu()发生选择溢值错误" << endl;
             choice = "-1";
-            system("pause");
+            std::system("pause");
         }
     }
 

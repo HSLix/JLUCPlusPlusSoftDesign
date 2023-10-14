@@ -4,6 +4,7 @@
 #include <string>
 #include "Friend.h"
 #include <fstream>
+#include "JoinedGroup.h"
 
 
 
@@ -155,6 +156,14 @@ void QQAccount::saveAccountAsFile()
     }
     fout.close();
 
+    // 接着是保存群信息
+    fout.open(this->thisAccountGroupFileAddress, std::ios::out);
+    for (std::list<QQJoinedGroup>::iterator it = this->myGroups.begin(); it != myGroups.end(); ++it) {
+        fout << it->getId() << std::endl;
+        fout << it->getName() << std::endl;
+    }
+    fout.close();
+
 }
 
 // 从文件中读取用户信息
@@ -183,7 +192,7 @@ bool QQAccount::readAccountFromFile()
         fin.close();
     }
 
-    // 然后是保存好友信息
+    // 然后是读取好友信息
     fin.open(this->thisAccountFriendFileAddress, std::ios::in);
 
     if (!fin.is_open() && result)
@@ -201,10 +210,80 @@ bool QQAccount::readAccountFromFile()
         fin.close();
     }
 
-    
+    // 然后是读取群信息
+    fin.open(this->thisAccountGroupFileAddress, std::ios::in);
+
+    if (!fin.is_open() && result)
+    {
+        std::cout << "File open error  ----  " << this->thisAccountGroupFileAddress;
+        result = false;
+    }
+    else
+    {
+        while (getline(fin, tempStr1))
+        {
+            getline(fin, tempStr2);
+            this->joinGroupToList(tempStr2, tempStr1);
+        }
+        fin.close();
+    }
     
     
     return result;
 }
 
+// 加入群
+bool QQAccount::joinGroupToList(std::string Name, std::string Id)
+{
+    bool result = false;
+    if (this->searchJoinedGroupById(Id) == -1)
+    {
+        QQJoinedGroup* tempJoinedGroup = new QQJoinedGroup(Name, Id);
+        this->myGroups.push_back(*tempJoinedGroup);
+        result = true;
+    }
+
+    return result;
+}
+
+// 遍历并输出已加入群列表，无返回
+void QQAccount::showJoinedGroupList()
+{
+    for (std::list<QQJoinedGroup>::iterator it = this->myGroups.begin(); it != myGroups.end(); ++it) {
+        std::cout << it->getId() << " " << it->getName() << std::endl;
+    }
+}
+
+// 根据Id查找已加入的群，返回其索引
+int QQAccount::searchJoinedGroupById(std::string Id)
+{
+    int index = -1;
+    int tempNum = 0;
+    for (std::list<QQJoinedGroup>::iterator it = this->myGroups.begin(); it != myGroups.end(); ++it) {
+        if (Id == it->getId()) {
+            index = tempNum;
+            break;
+        }
+        tempNum += 1;
+    }
+    return index;
+}
+
+// 根据Id退出已加入的群，返回是否成功删除
+bool QQAccount::delJoinedGroupById(std::string Id)
+{
+    bool result = false;
+    int index = this->searchJoinedGroupById(Id);
+    if (index != -1)
+    {
+        std::list<QQJoinedGroup>::iterator it = this->myGroups.begin();
+        for (int i = 0; i < index; i++)
+        {
+            it++;
+        }
+        this->myGroups.erase(it);
+        result = true;
+    }
+    return result;
+}
 

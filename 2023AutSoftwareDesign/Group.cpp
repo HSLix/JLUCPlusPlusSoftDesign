@@ -6,6 +6,8 @@
 #include "Group.h"
 
 
+using namespace std;
+
 //初始化QQ群文件储存目录
 std::string QQGroup::groupFileAddress = ".\\QQ\\Group\\";
 
@@ -101,18 +103,20 @@ void QQGroup::createOrResetFile(std::string ID)
 }
 
 
-
 // QQ群添加群成员
 void QQGroup::addMemberToList(std::string memberName, std::string memberId) {
-    QQGroupMember *tempGroupMember = new QQGroupMember(memberName, memberId);
-    this->myGroupMember.push_back(*tempGroupMember);
+    if (this->searchMemberById(memberId) == -1)
+    {
+        QQGroupMember* tempGroupMember = new QQGroupMember(memberName, memberId);
+        this->myGroupMember.push_back(*tempGroupMember);
+    }
 }
 
 
 // QQ群输出群成员列表
 void QQGroup::showMemberList() {
     for (std::list<QQGroupMember>::iterator it = this->myGroupMember.begin(); it != myGroupMember.end(); ++it) {
-        std::cout << it->getName() << std::endl;
+        std::cout << it->getName() << " " << it->getId() << std::endl;
     }
 }
 

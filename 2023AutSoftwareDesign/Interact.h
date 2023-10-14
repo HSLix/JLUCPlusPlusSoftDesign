@@ -27,7 +27,7 @@ public:
 	// 纯数字,可限制输入字符数
 	static std::string inputAllInt(int maxLen = 100, int minNum = 0, int maxNum = 9);
 	// 数字与英文字母，可限制输入字符数
-	static std::string inputEWordAndInt(int maxNum = 100);
+	static std::string inputEWordAndInt(int maxNum = 100, bool pwdSwitch = false);
 	// 所有字符
 	// static std::string inputNormal();
 
@@ -69,6 +69,22 @@ public:
 
 	// 这是QQ群的界面
 	std::string showQQGroupPage();
+
+	// 这是编辑Q群的界面
+	std::string editQQGroupPage();
+
+	// 这是加入Q群的界面
+	std::string joinQQGroupPage();
+
+	// 这是创建Q群的界面
+	std::string createQQGroupPage();
+
+	// 这是退出Q群的界面
+	std::string exitQQGroupPage();
+
+	// 这是查询Q群的界面
+	std::string searchQQGroupPage();
+
 
 private:
 	QQDataManage QQDataM;
