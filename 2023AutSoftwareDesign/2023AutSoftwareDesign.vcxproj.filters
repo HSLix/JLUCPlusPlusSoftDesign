@@ -42,6 +42,12 @@
     <ClInclude Include="Interact.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Program.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Scheme.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp">
@@ -66,6 +72,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Interact.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="program.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scheme.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

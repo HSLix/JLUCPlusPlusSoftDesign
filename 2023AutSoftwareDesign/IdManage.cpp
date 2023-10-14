@@ -41,10 +41,9 @@ bool QQIdManage::resetQQIdBitmap()
 {
     (this->QQIdBitmap)->reset();
 
-
     ofstream fout;
     bool result = false;
-    fout.open(this->fileName, ios::out | ios::trunc);
+    fout.open(this->fileName, ios::out);
     if (!fout.is_open())
     {
         cout << "File open error  ----  " << this->fileName;
@@ -88,7 +87,7 @@ bool QQIdManage::isQQIdExist(string QQId)
 }
 
 
-// 设置输入Id位置为1
+// 设置输入Id位置为1或0
 void QQIdManage::setQQIdIndex(string QQId, int num)
 {
     ifstream fin;

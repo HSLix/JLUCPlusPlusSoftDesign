@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AccountGroupDataManage.h"
 
 
 class Interact
@@ -7,43 +8,70 @@ class Interact
 public:
 
 	// 这是起始菜单
-	void showStartMenu();
+	virtual std::string showStartMenu();
 
 	// 这是注册界面
-	virtual void showSignUpPage() = 0;
+	virtual std::string showSignUpPage() { return ""; }
 
 	// 这是登录界面
-	virtual void showSignInPage() = 0;
+	virtual std::string showSignInPage(){ return ""; }
 
 	// 这是登录后的界面
-	virtual void showMainMenu() = 0; 
+	virtual std::string showAfterSignInMenu(){ return ""; }
+
+	// 这是注销的界面
+	virtual std::string showLogOffMenu() { return ""; }
 
 
 	// 输入检测与限制
 	// 纯数字,可限制输入字符数
-	static std::string inputAllInt(int maxNum = 100);
+	static std::string inputAllInt(int maxLen = 100, int minNum = 0, int maxNum = 9);
 	// 数字与英文字母，可限制输入字符数
 	static std::string inputEWordAndInt(int maxNum = 100);
 	// 所有字符
-	static std::string inputNormal();
+	// static std::string inputNormal();
 
-
-
-private:
-
+	//任意键继续然后清屏
+	static void pauseAndClearScreen();
+	
 };
 
 
 class QQInteract : public Interact
 {
 public:
-	// 这是注册界面
-	void showSignUpPage();
+	// 这是QQ开始界面
+	std::string showStartMenu();
 
-	// 这是登录界面
-	void showSignInPage();
+	// 这是QQ注册界面
+	std::string showSignUpPage();
 
-	// 这是登录后的界面
-	void showMainMenu();
+	// 这是QQ登录界面
+	std::string showSignInPage();
+
+	// 这是QQ登录后的界面
+	std::string showAfterSignInMenu();
+
+	// 这是QQ好友的界面
+	std::string showQQFriendPage();
+
+	// 这是添加QQ好友的界面
+	std::string addQQFriendPage();
+
+	// 这是查询QQ好友的界面
+	std::string searchQQFriendPage();
+
+	// 这是删除QQ好友的界面
+	std::string delQQFriendPage();
+
+	// 这是注销的界面
+	std::string showLogOffMenu();
+
+	// 这是QQ群的界面
+	std::string showQQGroupPage();
+
+private:
+	QQDataManage QQDataM;
+
 };
 

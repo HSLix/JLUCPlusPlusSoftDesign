@@ -17,11 +17,19 @@ public:
 
 
     std::string getName() {
-        return groupName;
+        return this->groupName;
     }
 
     std::string getId() {
-        return groupId;
+        return this->groupId;
+    }
+
+    void setName(std::string Name) {
+        this->groupName = Name;
+    }
+
+    void setId(std::string Id) {
+        this->groupId = Id;
     }
 
 
@@ -29,16 +37,18 @@ protected:
 	std::string groupName;
     std::string groupId;
     
-
+    
 
 };
 
 class QQGroup : public baseGroup
 {
 public:
-    QQGroup(std::string name, std::string id) {
-        groupName = name;
-        groupId = id;
+    QQGroup(std::string ID) {
+
+        thisGroupSelfFileAddress = QQGroup::groupFileAddress + ID + "Self" + ".txt";
+
+        thisGroupMemberFileAddress = QQGroup::groupFileAddress + ID + "Member" + ".txt";
     }
 
     virtual ~QQGroup() {};
@@ -59,15 +69,31 @@ public:
     int searchMemberById(std::string Id);
 
 
-    // 根据Id删除好友，返回是否成功删除
+    // 根据Id删除群成员，返回是否成功删除
     bool delMemberById(std::string Id);
 
+    // 将用户信息保存为文件
+    void saveGroupAsFile();
 
+    // 从文件中读取用户信息
+    bool readGroupFromFile();
+
+    // 创建或重置文件
+    static void createOrResetFile(std::string Id);
 
 
 protected:
+    // QQ群成员链表
     std::list<QQGroupMember> myGroupMember;
 
+    // QQ群文件储存的目录
+    static std::string groupFileAddress;
+
+    // QQ群自身信息的文件
+    std::string thisGroupSelfFileAddress;
+
+    // QQ群成员信息的文件
+    std::string thisGroupMemberFileAddress;
 };
 
 

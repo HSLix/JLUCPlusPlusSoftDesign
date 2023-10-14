@@ -1,6 +1,105 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 
-#include"Group.h"
+#include <fstream>
+#include <string>
+
+#include "Group.h"
+
+
+//初始化QQ群文件储存目录
+std::string QQGroup::groupFileAddress = ".\\QQ\\Group\\";
+
+
+
+// 将群信息保存为文件
+void QQGroup::saveGroupAsFile()
+{
+    std::ofstream fout;
+
+    // 先是保存群自身信息
+    fout.open(this->thisGroupSelfFileAddress, std::ios::out);
+    fout << this->getId() << std::endl;
+    fout << this->getName() << std::endl;
+    fout.close();
+
+    // 然后是保存群成员信息
+    fout.open(this->thisGroupMemberFileAddress, std::ios::out);
+    for (std::list<QQGroupMember>::iterator it = this->myGroupMember.begin(); it != myGroupMember.end(); ++it) {
+        fout << it->getId() << std::endl;
+        fout << it->getName() << std::endl;
+    }
+    fout.close();
+
+}
+
+// 从文件中读取群信息
+bool QQGroup::readGroupFromFile()
+{
+    std::ifstream fin;
+    std::string tempStr1, tempStr2;
+    bool result = true;
+
+    // 先是读取群自身信息
+    fin.open(this->thisGroupSelfFileAddress, std::ios::in);
+
+    if (!fin.is_open() && result)
+    {
+        std::cout << "File open error  ----  " << this->thisGroupSelfFileAddress;
+        result = false;
+    }
+    else
+    {
+        getline(fin, tempStr1);
+        this->setId(tempStr1);
+        getline(fin, tempStr1);
+        this->setName(tempStr1);
+        fin.close();
+    }
+
+    // 然后是读取群成员信息
+    fin.open(this->thisGroupMemberFileAddress, std::ios::in);
+
+    if (!fin.is_open() && result)
+    {
+        std::cout << "File open error  ----  " << this->thisGroupMemberFileAddress;
+        result = false;
+    }
+    else
+    {
+        while (getline(fin, tempStr1))
+        {
+            getline(fin, tempStr2);
+            this->addMemberToList(tempStr2, tempStr1);
+        }
+        fin.close();
+    }
+
+
+
+
+    return result;
+}
+
+// 创建或重置文件
+void QQGroup::createOrResetFile(std::string ID)
+{
+    std::ofstream fout;
+
+    std::string thisGroupSelfFileAddress = QQGroup::groupFileAddress + ID + "Self" + ".txt";
+
+    std::string thisGroupMemberFileAddress = QQGroup::groupFileAddress + ID + "Member" + ".txt";
+
+
+    // 先是重置群自身信息
+    fout.open(thisGroupSelfFileAddress, std::ios::out);
+    fout.close();
+
+    // 再重置群成员信息
+    fout.open(thisGroupMemberFileAddress, std::ios::out);
+    fout.close();
+
+}
+
 
 
 // QQ群添加群成员
@@ -16,7 +115,6 @@ void QQGroup::showMemberList() {
         std::cout << it->getName() << std::endl;
     }
 }
-
 
 
 

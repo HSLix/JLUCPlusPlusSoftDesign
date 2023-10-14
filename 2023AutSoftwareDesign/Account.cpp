@@ -151,7 +151,7 @@ void QQAccount::saveAccountAsFile()
     fout.open(this->thisAccountFriendFileAddress, std::ios::out);
     for (std::list<QQFriend>::iterator it = this->myFriends.begin(); it != myFriends.end(); ++it) {
         fout << it->getId() << std::endl;
-        // fout << it->getName() << std::endl;
+        fout << it->getName() << std::endl;
     }
     fout.close();
 

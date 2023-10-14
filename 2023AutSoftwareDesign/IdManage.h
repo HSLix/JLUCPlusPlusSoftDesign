@@ -37,7 +37,6 @@ private:
 	std::bitset<maxIdNum>* QQIdBitmap;
 	int latestId;
 	
-	
 };
 
 

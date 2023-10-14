@@ -136,7 +136,9 @@
     <ClInclude Include="IdManage.h" />
     <ClInclude Include="Interact.h" />
     <ClInclude Include="Login.h" />
+    <ClInclude Include="Program.h" />
     <ClInclude Include="RandomNum.h" />
+    <ClInclude Include="Scheme.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
@@ -146,7 +148,9 @@
     <ClCompile Include="Interact.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="program.cpp" />
     <ClCompile Include="RandomNum.cpp" />
+    <ClCompile Include="Scheme.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="QQ\QQIdBitmap.txt" />

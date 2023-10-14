@@ -7,21 +7,20 @@
 
 using namespace std;
 
-// 读取数据并保存为map
-bool QQDataManage::readFileSaveAsMap()
-{
-	bool result = false;
-	
-	
-	return result;
-}
+
 
 
 // 靠Id获取用户
-QQAccount QQDataManage::getAccountById(string Id)
+QQAccount* QQDataManage::getAccountById(string Id)
 {
-	QQAccount* tempPointer = new QQAccount(Id);
-	return *tempPointer;
+	QQAccount* tempPointer = nullptr;
+
+	if (this->IdManage.isQQIdExist(Id))
+	{
+		tempPointer = new QQAccount(Id);
+	}
+	
+	return tempPointer;
 }
 
 
@@ -33,11 +32,14 @@ bool QQDataManage::signupQQ(std::string Name, std::string Pwd)
 	if (newId != "-1")
 	{
 		QQAccount::createOrResetFile(newId);
-		QQAccount* p = new QQAccount(newId);
-		p->setName(Name);
-		p->setId(newId);
-		p->setPwd(Pwd);
-		p->saveAccountAsFile();
+		//QQAccount tempAccount(newId);
+		this->usingAccountPointer = new QQAccount(newId);
+
+		usingAccountPointer->setName(Name);
+		usingAccountPointer->setId(newId);
+		usingAccountPointer->setPwd(Pwd);
+		usingAccountPointer->saveAccountAsFile();
+
 		result = true;
 	}
 	
@@ -48,13 +50,18 @@ bool QQDataManage::signupQQ(std::string Name, std::string Pwd)
 bool QQDataManage::signinQQ(std::string Id, std::string Pwd)
 {
 	bool result = false;
-	QQAccount *tempAccountPointer = new QQAccount(Id);
-	result = tempAccountPointer->checkPwd(Pwd);
-
-	if (result == true)
+	if (this->getAccountById(Id) != nullptr)
 	{
-		this->usingAccountPointer = tempAccountPointer;
+		QQAccount *tempAccountPointer = this->getAccountById(Id);
+		tempAccountPointer->readAccountFromFile();
+		result = tempAccountPointer->checkPwd(Pwd);
+
+		if (result == true)
+		{
+			this->usingAccountPointer = tempAccountPointer;
+		}
 	}
+	
 
 	return result;
 
@@ -65,4 +72,39 @@ bool QQDataManage::signinQQ(std::string Id, std::string Pwd)
 void QQDataManage::clearQQAccount()
 {
 	this->IdManage.resetQQIdBitmap();
+}
+
+// 设置某个Id注销
+void QQDataManage::delId(std::string Id)
+{
+	this->IdManage.setQQIdIndex(Id, 0);
+}
+
+// 保存正使用用户数据
+void QQDataManage::saveAccountData()
+{
+	this->usingAccountPointer->saveAccountAsFile();
+}
+
+// 遍历并输出好友列表
+void QQDataManage::showAllFriend()
+{
+	cout << "--------------------------------------------------------------" << endl;
+	this->usingAccountPointer->showFriendList();
+	cout << "以上为所有好友\n" << endl;
+}
+
+
+// 添加好友
+void QQDataManage::addFriend(std::string Name, std::string Id)
+{
+	this->usingAccountPointer->addFriendToList(Name, Id);
+}
+
+
+// 删除好友
+void QQDataManage::delFriend(std::string Name = "", std::string Id = "")
+{
+	this->usingAccountPointer->delFriendById(Id);
+	this->usingAccountPointer->delFriendById(Id);
 }

@@ -4,8 +4,8 @@ root = true
 
 [*.{c++,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli}]
 
-# 文件编码字符集为 UTF-8
-charset = utf-8               
+# 文件编码字符集为 gbk
+charset = utf-8            
  
 
 
