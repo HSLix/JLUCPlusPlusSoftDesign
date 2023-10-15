@@ -49,3 +49,33 @@ public:
 
 
 
+class WechatJoinedGroup : public baseJoinedGroup
+{
+public:
+    WechatJoinedGroup(std::string Name, std::string Id) {
+        mId = Id;
+        mName = Name;
+    }
+
+    ~WechatJoinedGroup() {};
+
+
+};
+
+
+
+class WeiboJoinedGroup : public baseJoinedGroup
+{
+public:
+    WeiboJoinedGroup(std::string Name, std::string Id) {
+        mId = Id;
+        mName = Name;
+    }
+
+    ~WeiboJoinedGroup() {};
+
+
+};
+
+
+

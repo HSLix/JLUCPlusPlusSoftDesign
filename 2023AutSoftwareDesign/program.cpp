@@ -43,6 +43,21 @@ void program::branchPage()
 		QQScheme tempScheme = QQScheme();
 		this->schemePointer = &tempScheme;
 		this->schemePointer->startMenu();
+		break;
+	}
+	case 2:
+	{
+		WechatScheme tempScheme = WechatScheme();
+		this->schemePointer = &tempScheme;
+		this->schemePointer->startMenu();
+		break;
+	}
+	case 3:
+	{
+		WeiboScheme tempScheme = WeiboScheme();
+		this->schemePointer = &tempScheme;
+		this->schemePointer->startMenu();
+		break;
 	}
 	
 		

@@ -109,4 +109,112 @@ std::string QQScheme::startMenu()
 
 
 
+// Wechat起始界面
+std::string WechatScheme::startMenu()
+{
+    string choice;
+    bool exitFlag = false;
+    /*
+    * showStartMenu()
+    cout << "您已选择Wechat相关服务，可选择下列服务的序号输入：" << endl;
+    cout << "1、登录Wechat" << endl;
+    cout << "2、注册Wechat" << endl;
+    cout << "3、注销Wechat" << endl;
+    cout << "4、返回" << endl;
+    cout << "更多服务，敬请期待" << endl;
+    */
+    while (!exitFlag)
+    {
+        if (choice == "")
+        {
+            choice = this->menuPointer->showStartMenu();
+        }
+
+
+
+        // 根据输入来走后续流程
+        switch (stoi(choice))
+        {
+        case 1:
+            choice = this->menuPointer->showSignInPage();
+            break;
+        case 2:
+            choice = this->menuPointer->showSignUpPage();
+            break;
+        case 3:
+            choice = this->menuPointer->showLogOffMenu();
+            break;
+        case 4:
+            choice = "";
+            exitFlag = true;
+            break;
+        case 5:
+            choice = this->menuPointer->showAfterSignInMenu();
+            break;
+        default:
+            cout << "您所选择的序号尚未安排服务，请重新选择" << endl;
+        }
+        Interact::pauseAndClearScreen();
+
+    }
+
+    return choice;
+}
+
+
+
+// Weibo起始界面
+std::string WeiboScheme::startMenu()
+{
+    string choice;
+    bool exitFlag = false;
+    /*
+    * showStartMenu()
+    cout << "您已选择Weibo相关服务，可选择下列服务的序号输入：" << endl;
+    cout << "1、登录Weibo" << endl;
+    cout << "2、注册Weibo" << endl;
+    cout << "3、注销Weibo" << endl;
+    cout << "4、返回" << endl;
+    cout << "更多服务，敬请期待" << endl;
+    */
+    while (!exitFlag)
+    {
+        if (choice == "")
+        {
+            choice = this->menuPointer->showStartMenu();
+        }
+
+
+
+        // 根据输入来走后续流程
+        switch (stoi(choice))
+        {
+        case 1:
+            choice = this->menuPointer->showSignInPage();
+            break;
+        case 2:
+            choice = this->menuPointer->showSignUpPage();
+            break;
+        case 3:
+            choice = this->menuPointer->showLogOffMenu();
+            break;
+        case 4:
+            choice = "";
+            exitFlag = true;
+            break;
+        case 5:
+            choice = this->menuPointer->showAfterSignInMenu();
+            break;
+        default:
+            cout << "您所选择的序号尚未安排服务，请重新选择" << endl;
+        }
+        Interact::pauseAndClearScreen();
+
+    }
+
+    return choice;
+}
+
+
+
 

@@ -45,3 +45,35 @@ private:
 
 };
 
+
+class WechatGroupMember : public baseGroupMember
+{
+public:
+    WechatGroupMember(std::string Name, std::string Id) {
+        mName = Name;
+        mId = Id;
+    }
+
+    ~WechatGroupMember() {};
+
+
+private:
+
+};
+
+
+class WeiboGroupMember : public baseGroupMember
+{
+public:
+    WeiboGroupMember(std::string Name, std::string Id) {
+        mName = Name;
+        mId = Id;
+    }
+
+    ~WeiboGroupMember() {};
+
+
+private:
+
+};
+

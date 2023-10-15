@@ -49,3 +49,31 @@ public:
 
 
 
+class WechatFriend : public baseFriend
+{
+public:
+    WechatFriend(std::string Name, std::string Id) {
+        mId = Id;
+        mName = Name;
+    }
+
+    ~WechatFriend() {};
+
+
+};
+
+
+class WeiboFriend : public baseFriend
+{
+public:
+    WeiboFriend(std::string Name, std::string Id) {
+        mId = Id;
+        mName = Name;
+    }
+
+    ~WeiboFriend() {};
+
+
+};
+
+

@@ -53,21 +53,54 @@ public:
 		this->menuPointer = &interact;
 	}
 
-
-
 	// QQ起始界面
 	std::string startMenu();
 
-	// QQ登录界面
-	// void signInMenu();
-
-	// QQ注册界面
-	// void signUpMenu();
-
-	// QQ注销界面
-	// void logOffMenu();
-
 private:
 	QQInteract interact;
+};
+
+// Wechat事件流程
+class WechatScheme : public baseScheme
+{
+public:
+	WechatScheme()
+	{
+		// 清除置空
+		if (this->menuPointer != nullptr)
+		{
+			delete this->menuPointer;
+			this->menuPointer = nullptr;
+		}
+		this->menuPointer = &interact;
+	}
+
+	// Wechat起始界面
+	std::string startMenu();
+
+private:
+	WechatInteract interact;
+};
+
+// Weibo事件流程
+class WeiboScheme : public baseScheme
+{
+public:
+	WeiboScheme()
+	{
+		// 清除置空
+		if (this->menuPointer != nullptr)
+		{
+			delete this->menuPointer;
+			this->menuPointer = nullptr;
+		}
+		this->menuPointer = &interact;
+	}
+
+	// Weibo起始界面
+	std::string startMenu();
+
+private:
+	WeiboInteract interact;
 };
 

@@ -15,9 +15,6 @@ using namespace std;
 
 
 
-
-
-
 // 重置Id
 bool baseIdManage::resetIdBitmap()
 {
@@ -122,8 +119,9 @@ string baseIdManage::returnUsableId()
         {
             while (result == -1)
             {
-                result = ++this->latestId;
+                result = this->latestId;
                 this->setIdIndex(to_string(result), 1);
+                this->setLastestId();
             }
         }
         fin.close();
@@ -132,6 +130,26 @@ string baseIdManage::returnUsableId()
     return to_string(result);
 }
 
+// 获取准确的最新Id
+void baseIdManage::setLastestId()
+{
+    int count = 0;
+    int index = minIdNum;
+
+    // cout << this->IdBitmap->count() << endl;
+
+    while (count < this->IdBitmap->count())
+    {
+        if ((*(this->IdBitmap))[index] == 1)
+        {
+            count++;
+        }
+        index++;
+    }
+
+
+    this->latestId = index;
+}
 
 
 QQIdManage::QQIdManage()
@@ -152,7 +170,7 @@ QQIdManage::QQIdManage()
         fin.close();
     }
 
-    this->latestId = minIdNum + (int)this->IdBitmap->count();
+    this->setLastestId();
 }
 
 QQGIdManage::QQGIdManage()
@@ -173,7 +191,95 @@ QQGIdManage::QQGIdManage()
         fin.close();
     }
 
-    this->latestId = minIdNum + (int)this->IdBitmap->count();
+    this->setLastestId();
+}
+
+
+
+WechatIdManage::WechatIdManage()
+{
+    this->fileName = "./Wechat/WechatIdBitmap.txt";
+    this->IdBitmap = new bitset<maxIdNum>;
+
+
+    ifstream fin;
+    fin.open(this->fileName, ios::in);
+    if (!fin.is_open())
+    {
+        cout << "File open error  ----  " << this->fileName;
+    }
+    else
+    {
+        fin >> *(this->IdBitmap);
+        fin.close();
+    }
+
+    this->setLastestId();
+}
+
+WechatGIdManage::WechatGIdManage()
+{
+    this->fileName = "./Wechat/WechatGIdBitmap.txt";
+    this->IdBitmap = new bitset<maxIdNum>;
+
+
+    ifstream fin;
+    fin.open(this->fileName, ios::in);
+    if (!fin.is_open())
+    {
+        cout << "File open error  ----  " << this->fileName;
+    }
+    else
+    {
+        fin >> *(this->IdBitmap);
+        fin.close();
+    }
+
+    this->setLastestId();
+}
+
+
+
+WeiboIdManage::WeiboIdManage()
+{
+    this->fileName = "./Weibo/WeiboIdBitmap.txt";
+    this->IdBitmap = new bitset<maxIdNum>;
+
+
+    ifstream fin;
+    fin.open(this->fileName, ios::in);
+    if (!fin.is_open())
+    {
+        cout << "File open error  ----  " << this->fileName;
+    }
+    else
+    {
+        fin >> *(this->IdBitmap);
+        fin.close();
+    }
+
+    this->setLastestId();
+}
+
+WeiboGIdManage::WeiboGIdManage()
+{
+    this->fileName = "./Weibo/WeiboGIdBitmap.txt";
+    this->IdBitmap = new bitset<maxIdNum>;
+
+
+    ifstream fin;
+    fin.open(this->fileName, ios::in);
+    if (!fin.is_open())
+    {
+        cout << "File open error  ----  " << this->fileName;
+    }
+    else
+    {
+        fin >> *(this->IdBitmap);
+        fin.close();
+    }
+
+    this->setLastestId();
 }
 
 /*
