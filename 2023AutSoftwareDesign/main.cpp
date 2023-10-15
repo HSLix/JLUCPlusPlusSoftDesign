@@ -34,10 +34,20 @@ int main()
     std::system("chcp 65001");
     std::system("cls");
 
-    // clearDataBase();
+    //clearDataBase();
 
+    /*
+    已初始化可用账号如下：
+    QQId：100000
+    QQ密码：123
+    WechatId：100001
+    Wechat密码：123
+    WeiboId：100000
+    QQ密码：123
+    */
 
     program* TecSys = new program();
+    
     while (true)
     {
         TecSys->rootPage();

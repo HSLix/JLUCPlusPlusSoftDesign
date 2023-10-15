@@ -135,25 +135,25 @@ public:
 	// 这是Wechat群的界面
 	std::string showWechatGroupPage();
 
-	// 这是编辑Q群的界面
+	// 这是编辑Wechat群的界面
 	std::string editWechatGroupPage();
 
-	// 这是加入Q群的界面
+	// 这是加入Wechat群的界面
 	std::string joinWechatGroupPage();
 
-	// 这是创建Q群的界面
+	// 这是创建Wechat群的界面
 	std::string createWechatGroupPage();
 
-	// 这是退出Q群的界面
+	// 这是退出Wechat群的界面
 	std::string exitWechatGroupPage();
 
-	// 这是查询Q群的界面
+	// 这是查询Wechat群的界面
 	std::string searchWechatGroupPage();
 
-	// 这是给Q群邀请好友的界面
+	// 这是给Wechat群邀请好友的界面
 	std::string inviteFriendToWechatGroupPage();
 
-	// 这是删除Q群的界面
+	// 这是删除Wechat群的界面
 	std::string delWechatGroupPage();
 
 	// 这是Wechat用户设置界面
@@ -200,25 +200,25 @@ public:
 	// 这是Weibo群的界面
 	std::string showWeiboGroupPage();
 
-	// 这是编辑Q群的界面
+	// 这是编辑Weibo群的界面
 	std::string editWeiboGroupPage();
 
-	// 这是加入Q群的界面
+	// 这是加入Weibo群的界面
 	std::string joinWeiboGroupPage();
 
-	// 这是创建Q群的界面
+	// 这是创建Weibo群的界面
 	std::string createWeiboGroupPage();
 
-	// 这是退出Q群的界面
+	// 这是退出Weibo群的界面
 	std::string exitWeiboGroupPage();
 
-	// 这是查询Q群的界面
+	// 这是查询Weibo群的界面
 	std::string searchWeiboGroupPage();
 
-	// 这是给Q群邀请好友的界面
+	// 这是给Weibo群邀请好友的界面
 	std::string inviteFriendToWeiboGroupPage();
 
-	// 这是删除Q群的界面
+	// 这是删除Weibo群的界面
 	std::string delWeiboGroupPage();
 
 	// 这是Weibo用户设置界面

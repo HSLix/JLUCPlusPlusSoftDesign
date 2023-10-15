@@ -89,13 +89,10 @@ string Interact::inputEWordAndInt(int maxLen, bool pwdSwitch)
             {
                 cout << "\r" + result;
             }
-            
-
             inputWord = _getch();
         }
     }
     
-
     cout << endl;
     return result;
 }
@@ -218,6 +215,7 @@ string QQInteract::showSignInPage()
     while (!exitFlag)
     {
         cout << "--------------------------------------------------------------" << endl;
+        cout << "登录共有三次机会" << endl;
         cout << "请输入Id:" << endl;
         signInId = Interact::inputAllInt(6);
         cout << "请输入密码:" << endl;
@@ -1081,6 +1079,7 @@ string WechatInteract::showSignInPage()
     while (!exitFlag)
     {
         cout << "--------------------------------------------------------------" << endl;
+        cout << "登录共有三次机会" << endl;
         cout << "请输入Id:" << endl;
         signInId = Interact::inputAllInt(6);
         cout << "请输入密码:" << endl;
@@ -1980,6 +1979,7 @@ string WeiboInteract::showSignInPage()
     while (!exitFlag)
     {
         cout << "--------------------------------------------------------------" << endl;
+        cout << "登录共有三次机会" << endl;
         cout << "请输入Id:" << endl;
         signInId = Interact::inputAllInt(6);
         cout << "请输入密码:" << endl;
