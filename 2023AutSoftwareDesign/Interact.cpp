@@ -366,6 +366,10 @@ std::string QQInteract::addQQFriendPage()
     {
         cout << "不能添加自己作为好友" << endl;
     }
+    else if (tempPointer->searchFriendById(this->QQDataM.getUsingAccountId()) != -1)
+    {
+        cout << "不能重复添加好友" << endl;
+    }
     else
     {
         cout << "目标用户信息为：" << endl;
@@ -461,6 +465,7 @@ std::string QQInteract::delQQFriendPage()
         {
             this->QQDataM.delFriend(tempPointer->getName(), tempPointer->getId());
             tempPointer->delFriendById(this->QQDataM.getUsingAccountId());
+            tempPointer->saveAccountAsFile();
             cout << "删除成功" << endl;
         }
         delete tempPointer;
@@ -1230,6 +1235,10 @@ std::string WechatInteract::addWechatFriendPage()
     {
         cout << "不能添加自己作为好友" << endl;
     }
+    else if (tempPointer->searchFriendById(this->WechatDataM.getUsingAccountId()) != -1)
+    {
+        cout << "不能重复添加好友" << endl;
+    }
     else
     {
         cout << "目标用户信息为：" << endl;
@@ -1325,6 +1334,7 @@ std::string WechatInteract::delWechatFriendPage()
         {
             this->WechatDataM.delFriend(tempPointer->getName(), tempPointer->getId());
             tempPointer->delFriendById(this->WechatDataM.getUsingAccountId());
+            tempPointer->saveAccountAsFile();
             cout << "删除成功" << endl;
         }
         delete tempPointer;
@@ -2130,6 +2140,10 @@ std::string WeiboInteract::addWeiboFriendPage()
     {
         cout << "不能添加自己作为好友" << endl;
     }
+    else if (tempPointer->searchFriendById(this->WeiboDataM.getUsingAccountId()) != -1)
+    {
+        cout << "不能重复添加好友" << endl;
+    }
     else
     {
         cout << "目标用户信息为：" << endl;
@@ -2225,6 +2239,7 @@ std::string WeiboInteract::delWeiboFriendPage()
         {
             this->WeiboDataM.delFriend(tempPointer->getName(), tempPointer->getId());
             //tempPointer->delFriendById(this->WeiboDataM.getUsingAccountId());
+            tempPointer->saveAccountAsFile();
             cout << "删除成功" << endl;
         }
         delete tempPointer;
